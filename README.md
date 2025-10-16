@@ -1,2 +1,3 @@
 # Mean-Median-and-Gaussian-Filters
 A compact OpenCV/Matplotlib lab that renders a 3-row × 4-column matrix of blur variants (mean, median, Gaussian across multiple kernel sizes and sigmas) for side-by-side visual benchmarking
+This asset operationalizes an apples-to-apples visualization framework for smoothing operators. By standardizing image IO, kernel sizing, and display layout, it enables rapid qualitative assessment of how mean, median, and Gaussian filters impact texture, noise, and edges. The script is intentionally lightweight to accelerate instructional delivery, exploratory data analysis, and pre-production algorithm selection.
