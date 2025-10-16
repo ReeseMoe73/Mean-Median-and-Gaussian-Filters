@@ -1,0 +1,104 @@
+I provided an image that I imported into Python, and 
+
+various smoothing filters were applied to observe the results. The original image consists of a 
+
+woman in frame and contains a great amount of impulse noise. The noise appears as discreet 
+
+random spots. Impulse noise has a short-tailed probability density function. An impulse is also 
+
+called an “outlier” because its value lies beyond the values of the rest of the data in a window 
+
+(Bhuyan, 2020).  
+
+To smooth out the image, I applied three filter types, average or mean, median, and Gaussian, at 
+the selected kernel sizes of 3x3, 5x7, and 7x7. A kernel in this field is a filter composed of a 
+
+small square matrix with an odd number of elements in each dimension. The following are my 
+
+observations.
+
+1) Features & Outcomes
+
+Twelve blur variants spanning kernel sizes {3, 5, 7} and Gaussian σ {5, 7}.
+
+Uniform visualization: 3×4 subplot grid for direct side-by-side comparisons.
+
+Color-accurate rendering using BGR→RGB conversion for Matplotlib.
+
+Didactic naming: each pane is titled with the operator and effective hyperparameters. 
+
+3 row 4 column blur comparisons
+
+2) System Requirements
+
+Python: 3.8+
+
+Dependencies:
+
+opencv-python (cv2)
+
+numpy
+
+matplotlib
+
+Runtime context: local desktop (Matplotlib interactive windows), or headless with a non-interactive backend.
+
+Install in a virtual environment:
+
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS/Linux
+source .venv/bin/activate
+
+pip install opencv-python numpy matplotlib
+
+3) Quick Start
+
+Place a test image named Mod4CT1.jpg beside the script.
+
+Run:
+
+python "3 row 4 column blur comparisons.py"
+
+
+A figure window will render a 3×4 grid of filtered images.
+
+4) How It Works (Design Overview)
+
+Load: cv2.imread('Mod4CT1.jpg') ingests the image (BGR order).
+
+Transform: Twelve filtered variants are generated:
+
+Mean/Box blur: cv2.blur(img, (k, k)) for k∈{3,5,7}.
+
+Median blur: cv2.medianBlur(img, k) with odd k.
+
+Gaussian blur: cv2.GaussianBlur(img, (k, k), sigmaX) for k∈{3,5,7}, σ∈{5,7}.
+
+Display: A 3×4 Matplotlib grid (plt.subplots(3,4)) shows each variant. Each pane converts BGR→RGB for correct on-screen color fidelity. 
+
+3 row 4 column blur comparisons
+
+5) Parameterization Guide
+
+Kernel size (k): Larger kernels increase smoothing radius, potentially attenuating detail and edges.
+
+Median vs Mean:
+
+Median is robust to salt-and-pepper noise and preserves edges better.
+
+Mean blurs uniformly and may smear edges.
+
+Gaussian σ: Controls spread (standard deviation) of the Gaussian; higher σ yields stronger smoothing.
+
+Figure sizing: figsize=(25,5) prioritizes width. For balanced aspect, consider (18,10).
+
+6) Known Issues (and Fixes)
+
+There are a few defects in the current script that can impair reliability or cause runtime errors.
+
+A) Titles length mismatch / missing comma
+
+The titles list concatenates two final strings due to a missing comma, leaving 11 titles for 12 images, which can break zip(axs.flatten(), imgs, titles).
+Fix: ensure 12 discrete titles.
